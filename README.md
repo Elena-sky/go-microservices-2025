@@ -104,3 +104,21 @@ jdbc:postgresql://localhost:5433/users
 mongodb://admin:password@localhost:27017
 ~~~
 
+# Project Launch
+
+Build and Start Services with Docker Compose.
+
+- From the `project` directory run `make up_build` — builds all services and starts Docker containers.
+- Then run `make start` — builds and starts the frontend application locally.
+
+Useful Make Commands
+- `make up` — Start Docker containers without rebuilding.
+- `make down` — Stop Docker containers.
+- `make build_front` — Build only the frontend.
+- `make build_broker` — Build only the broker service.
+- `make build_auth` — Build only the authentication service.
+- `make build_logger` — Build only the logger service.
+- `make build_mail` — Build only the mailer service.
+- `make build_listener` — Build only the listener service.
+- `make start` — Start the frontend app manually.
+- `make stop` — Stop the frontend app manually.
