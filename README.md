@@ -141,3 +141,6 @@ Deployment
 - Verify updated services: again, confirm the update and scaling with `docker service ls`
 - Scale broker-service down to 0 instances: temporarily stop the service without removing it, run `docker service scale myapp_broker-service=0`
 - Leave Docker Swarm: to remove the node from the Swarm cluster, run `docker swarm leave`
+5) Adding Caddy as a Proxy for the Front End and Broker. Use Caddy as a reverse proxy to route traffic to your services
+- Build the Caddy image, run `docker build -f caddy.dockerfile -t tsawler/micro-caddy:1.0.0 .`
+- Push the image to Docker Hub, run `docker push tsawler/micro-caddy:1.0.0`
