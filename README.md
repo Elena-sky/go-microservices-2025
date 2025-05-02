@@ -144,3 +144,7 @@ Deployment
 5) Adding Caddy as a Proxy for the Front End and Broker. Use Caddy as a reverse proxy to route traffic to your services
 - Build the Caddy image, run `docker build -f caddy.dockerfile -t tsawler/micro-caddy:1.0.0 .`
 - Push the image to Docker Hub, run `docker push tsawler/micro-caddy:1.0.0`
+6) Modifying the Hosts File. To enable local domain-based routing to your Docker services (e.g., http://frontend, http://backend), modify your system’s hosts file:
+- Edit `/etc/hosts`. Add entries like `127.0.0.1 localhost backend` and `::1 localhost backend`
+- Initialize Docker Swarm (if not already initialized), run `docker swarm init`
+- Deploy your stack. Use the configured swarm.yaml file, run `docker stack deploy -c swarm.yaml myapp`
