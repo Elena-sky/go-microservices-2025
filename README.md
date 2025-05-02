@@ -122,3 +122,15 @@ Useful Make Commands
 - `make build_listener` — Build only the listener service.
 - `make start` — Start the frontend app manually.
 - `make stop` — Stop the frontend app manually.
+
+Deployment
+1) Building images for our microservices
+2) Create a swarm.yml file and configure it
+3) Initialize and starting Docker Swarm
+- Init swarm file `docker swarm init`,
+- `docker swarm join-token worker`
+- `docker swarm join-token manager`
+- Stop the front-end `make stop`
+-  `make down`
+- Deploy the swarm.yml `docker stack deploy -c swarm.yml myapp`
+- `docker service ls`
