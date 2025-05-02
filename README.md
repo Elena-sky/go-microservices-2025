@@ -127,10 +127,17 @@ Deployment
 1) Building images for our microservices
 2) Create a swarm.yml file and configure it
 3) Initialize and starting Docker Swarm
-- Init swarm file `docker swarm init`,
-- `docker swarm join-token worker`
-- `docker swarm join-token manager`
-- Stop the front-end `make stop`
--  `make down`
-- Deploy the swarm.yml `docker stack deploy -c swarm.yml myapp`
-- `docker service ls`
+- Initialize the Swarm: create a Swarm on the main (manager) node, run `docker swarm init`
+- Get join token for worker nodes: To add worker nodes to the Swarm, run on each worker `docker swarm join-token worker`
+- Get join token for manager nodes: to add additional manager nodes, run `docker swarm join-token manager`
+- Deploy the application stack: use the swarm.yml file to deploy your services to the Swarm, run `docker stack deploy -c swarm.yml myapp`
+- Check running services: view status of the deployed services, run `docker service ls`
+4) Scaling services
+- Scale listener-service to 3 instances, run`docker service scale myapp_listener-service=3`
+- Verify scaled services: check the current state of all services, run `docker service ls`
+- Scale logger-service to 2 instances, run`docker service scale myapp_logger-service=2`
+- Verify scaled services: check the current state of all services, run `docker service ls`
+- Update service image: for example, update logger-service to a specific version `docker service update --image tsawler/logger-service:1.0.1 myapp_logger-service`
+- Verify updated services: again, confirm the update and scaling with `docker service ls`
+- Scale broker-service down to 0 instances: temporarily stop the service without removing it, run `docker service scale myapp_broker-service=0`
+- Leave Docker Swarm: to remove the node from the Swarm cluster, run `docker swarm leave`
