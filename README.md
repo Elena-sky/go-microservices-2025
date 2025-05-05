@@ -136,3 +136,32 @@ Deployment
 - To verify that Minikube is running properly, check the status with: `minikube status`
 4) Launch Kubernetes Dashboard
 - To start the K8s dashboard UI, run `minikube dashboard`
+5) Deploying MongoDB to Kubernetes
+- Create and Configure the `k8s/mongo.yml` File: The mongo.yml file will describe the deployment of MongoDB in your Kubernetes cluster.
+- Apply the MongoDB Deployment to the Cluster: Once the mongo.yml file is created, you can apply it to the cluster by running: `kubectl apply -f k8s`
+- Check the Status of the Pods, run `kubectl get pods`
+- Launch the Kubernetes Dashboard - form the project directory, run `minikube dashboard`
+- View Services in the Cluster. Once your cluster is running, you can check the services running in your Kubernetes cluster by using the following command: `kubectl get svc`
+6) Deploying RabbitMQ to Kubernetes
+- Create and Configure the `k8s/rabbit.yml` file.
+- Apply the RabbitMQ Deployment to the Cluster, run `kubectl apply -f k8s/rabbit.yml`
+- Check the Status of the RabbitMQ Pod, run `kubectl get pods`
+- View Services in the Cluster, run `kubectl get svc`
+7) Deploying Other Services (Broker, MailHog, Mail, Logger, Listener, and Authentication Services) to Kubernetes. For the following files: 
+- k8s/broker.yml
+- k8s/mailhog.yml
+- k8s/mail.yml
+- k8s/logger.yml
+- k8s/listener.yml
+- k8s/authentication.yml
+Repeat the same process described in step 6:
+- Create and configure the corresponding YAML file.
+- Apply it to the cluster using `kubectl apply -f [filePath]`
+- Check pod status with `kubectl get pods`.
+- View active services using `kubectl get svc`
+8) Viewing  and Managing Deployments
+- View Pods in the Cluster, run `kubectl get pods`
+- Get Logs from a Specific Pod `kubectl logs [NAME]`
+- List All Deployments `kubectl get deployments`
+- Delete a Deployment `kubectl delete deployments [NAME]`
+- Verify Deletion `kubectl get deployments`
