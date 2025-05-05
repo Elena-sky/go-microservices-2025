@@ -180,3 +180,4 @@ Deployment
 - To scale the logger service, you change the replicas field in the k8s/logger.yml file.
 - Use `kubectl apply -f logger.yml` to apply the changes and scale the service.
 - Verify the scaling by checking the pods with `kubectl get pods`
+13) Deploying to cloud services https://devopscube.com/configure-ingress-tls-kubernetes/ 
