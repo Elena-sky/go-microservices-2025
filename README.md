@@ -147,14 +147,7 @@ Deployment
 - Apply the RabbitMQ Deployment to the Cluster, run `kubectl apply -f k8s/rabbit.yml`
 - Check the Status of the RabbitMQ Pod, run `kubectl get pods`
 - View Services in the Cluster, run `kubectl get svc`
-7) Deploying Other Services if not deployed before (Broker, MailHog, Mail, Logger, Listener, and Authentication Services) to Kubernetes. For the following files:
-- k8s/broker.yml
-- k8s/mailhog.yml
-- k8s/mail.yml
-- k8s/logger.yml
-- k8s/listener.yml
-- k8s/authentication.yml
-- k8s/front-end.yml
+7) Deploying Other Services if not deployed before (Broker, MailHog, Mail, Logger, Listener, and Authentication Services) to Kubernetes. For the following files: k8s/broker.yml / k8s/mailhog.yml / k8s/mail.yml / k8s/logger.yml / k8s/listener.yml / k8s/authentication.yml / k8s/front-end.yml.
   Repeat the same process described in step 6:
 - Create and configure the corresponding YAML file.
 - Apply it to the cluster using `kubectl apply -f [filePath]`
@@ -177,3 +170,9 @@ Deployment
 - Run the Minikube tunnel (this allows external access to the LoadBalancer IP): `minikube tunnel`
 - Remove the LoadBalancer service you just created if you need to update or replace it (e.g., due to config changes or redeployment), run `kubectl delete svc broker-service`
 - Reapply the broker deployment and potentially its associated Service if defined inside broker.yml, run`kubectl apply -f k8s/broker.yml`. This ensures that the deployment is in sync with the latest configuration, especially if the broker.yml defines a service that was deleted or modified.
+11) Adding an NGINX Ingress to Our Cluster. Run inside the project dir:
+- Enable the Ingress addon in Minikube, run  `minikube addons enable ingress`. This enables the NGINX Ingress controller within your Minikube cluster, which will handle HTTP(S) routing.
+- Apply the ingress.yml file, run `kubectl apply -f ingress.yml`. This applies the Ingress resource definition. The ingress.yml typically defines the routing rules (paths, services, etc.) for incoming HTTP traffic.
+- Verify the Ingress is created successfully, run `kubectl get ingress`. This command lists all the Ingress resources in your cluster, allowing you to confirm that the Ingress resource was properly applied.
+- Edit the /etc/hosts file: To access your services via custom domain names (e.g., front-end.info and broker-service.info), you need to add mappings in your local machine’s hosts file. This maps the IP addresses of your services to these domain names, run `sudo vi /etc/hosts` and add new line `127.0.0.1 front-end.info broker-service.info`
+- Start the Minikube tunnel, run`minikube tunnel`. This command allows access to the services exposed via LoadBalancer or Ingress on your Minikube cluster. The tunnel routes network traffic from the host machine to Minikube and helps to expose services externally.
