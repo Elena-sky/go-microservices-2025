@@ -147,7 +147,7 @@ Deployment
 - Apply the RabbitMQ Deployment to the Cluster, run `kubectl apply -f k8s/rabbit.yml`
 - Check the Status of the RabbitMQ Pod, run `kubectl get pods`
 - View Services in the Cluster, run `kubectl get svc`
-7) Deploying Other Services if not deployed before (Broker, MailHog, Mail, Logger, Listener, and Authentication Services) to Kubernetes. For the following files: k8s/broker.yml / k8s/mailhog.yml / k8s/mail.yml / k8s/logger.yml / k8s/listener.yml / k8s/authentication.yml / k8s/front-end.yml.
+7) Deploying Other Services if not deployed before (Broker, MailHog, Mail, Logger, Listener, and Authentication Services) to Kubernetes. For the following files: k8s/broker.yml, k8s/mailhog.yml, k8s/mail.yml, k8s/logger.yml, k8s/listener.yml, k8s/authentication.yml, k8s/front-end.yml.
   Repeat the same process described in step 6:
 - Create and configure the corresponding YAML file.
 - Apply it to the cluster using `kubectl apply -f [filePath]`
@@ -176,3 +176,7 @@ Deployment
 - Verify the Ingress is created successfully, run `kubectl get ingress`. This command lists all the Ingress resources in your cluster, allowing you to confirm that the Ingress resource was properly applied.
 - Edit the /etc/hosts file: To access your services via custom domain names (e.g., front-end.info and broker-service.info), you need to add mappings in your local machine’s hosts file. This maps the IP addresses of your services to these domain names, run `sudo vi /etc/hosts` and add new line `127.0.0.1 front-end.info broker-service.info`
 - Start the Minikube tunnel, run`minikube tunnel`. This command allows access to the services exposed via LoadBalancer or Ingress on your Minikube cluster. The tunnel routes network traffic from the host machine to Minikube and helps to expose services externally.
+12) Scaling services. In Kubernetes, scaling a service typically means adjusting the number of pods running for a given deployment. However, in this specific context, you are applying the logger.yml file to ensure that the service is deployed or scaled as per the configuration in the file.
+- To scale the logger service, you change the replicas field in the k8s/logger.yml file.
+- Use `kubectl apply -f logger.yml` to apply the changes and scale the service.
+- Verify the scaling by checking the pods with `kubectl get pods`
