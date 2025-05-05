@@ -165,3 +165,6 @@ Repeat the same process described in step 6:
 - List All Deployments `kubectl get deployments`
 - Delete a Deployment `kubectl delete deployments [NAME]`
 - Verify Deletion `kubectl get deployments`
+9) Running Postgres on the host machine.
+- Create and Configure the `postgres.yml` file.
+- From the project directory, start Postgres using Docker Compose: `docker-compose -f postgres.yml up -d`
