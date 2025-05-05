@@ -9,7 +9,7 @@ This is the source code for the Udemy course **Working with Microservices and Go
 consists of a number of loosely coupled microservices, all written in Go:
 
 - broker-service: an optional single entry point to connect to all services from one place (accepts JSON;
-sends JSON, makes calls via gRPC, and pushes to RabbitMQ)
+  sends JSON, makes calls via gRPC, and pushes to RabbitMQ)
 - authentication-service: authenticates users against a Postgres database (accepts JSON)
 - logger-service: logs important events to a MongoDB database (accepts RPC, gRPC, and JSON)
 - queue-listener-service: consumes messages from amqp (RabbitMQ) and initiates actions based on payload (sends via RPC)
@@ -28,7 +28,7 @@ starts the following services:
 - mailhog - used as a fake mail server to work with the mail service
 
 ## Running the project
-From the root level of the project, execute this command (this assumes that you have 
+From the root level of the project, execute this command (this assumes that you have
 [GNU make](https://www.gnu.org/software/make/) and a recent version
 of [Docker](https://www.docker.com/products/docker-desktop) installed on your machine):
 
@@ -44,7 +44,7 @@ Then start the front end:
 make start
 ~~~
 
-Hit the front end with your web browser at `http://localhost:80`. You can also access a web 
+Hit the front end with your web browser at `http://localhost:80`. You can also access a web
 front end to the logger service by going to `http://localhost:8082` (or whatever port you
 specify in the `docker-compose.yml file`).
 
@@ -147,14 +147,15 @@ Deployment
 - Apply the RabbitMQ Deployment to the Cluster, run `kubectl apply -f k8s/rabbit.yml`
 - Check the Status of the RabbitMQ Pod, run `kubectl get pods`
 - View Services in the Cluster, run `kubectl get svc`
-7) Deploying Other Services (Broker, MailHog, Mail, Logger, Listener, and Authentication Services) to Kubernetes. For the following files: 
+7) Deploying Other Services if not deployed before (Broker, MailHog, Mail, Logger, Listener, and Authentication Services) to Kubernetes. For the following files:
 - k8s/broker.yml
 - k8s/mailhog.yml
 - k8s/mail.yml
 - k8s/logger.yml
 - k8s/listener.yml
 - k8s/authentication.yml
-Repeat the same process described in step 6:
+- k8s/front-end.yml
+  Repeat the same process described in step 6:
 - Create and configure the corresponding YAML file.
 - Apply it to the cluster using `kubectl apply -f [filePath]`
 - Check pod status with `kubectl get pods`.
@@ -168,3 +169,11 @@ Repeat the same process described in step 6:
 9) Running Postgres on the host machine.
 - Create and Configure the `postgres.yml` file.
 - From the project directory, start Postgres using Docker Compose: `docker-compose -f postgres.yml up -d`
+10) Adding a LoadBalancer Service
+- View current services: `kubectl get svc`
+- Delete the existing service (if created as a ClusterIP or NodePort by default): `kubectl delete svc broker-service`
+- Expose the deployment as a LoadBalancer: `kubectl expose deployment broker-service --type=LoadBalancer --port=8080 --target-port=8080`
+- Verify that the service has been exposed: `kubectl get svc`
+- Run the Minikube tunnel (this allows external access to the LoadBalancer IP): `minikube tunnel`
+- Remove the LoadBalancer service you just created if you need to update or replace it (e.g., due to config changes or redeployment), run `kubectl delete svc broker-service`
+- Reapply the broker deployment and potentially its associated Service if defined inside broker.yml, run`kubectl apply -f k8s/broker.yml`. This ensures that the deployment is in sync with the latest configuration, especially if the broker.yml defines a service that was deleted or modified.
