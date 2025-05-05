@@ -122,3 +122,17 @@ Useful Make Commands
 - `make build_listener` — Build only the listener service.
 - `make start` — Start the frontend app manually.
 - `make stop` — Stop the frontend app manually.
+
+Deployment
+1) Install Minikube
+- Follow step 1 “Installation” at https://minikube.sigs.k8s.io/docs/start/?arch=%2Fmacos%2Farm64%2Fstable%2Fbinary+download
+2) Install kubectl
+- Download the kubectl binary from https://kubernetes.io/docs/tasks/tools/
+- Make the kubectl binary executable, run `chmod +x ./kubectl`
+- Move it to a directory in your PATH and assign proper ownership `sudo mv ./kubectl /usr/local/bin/kubectl`, and run `sudo chown root: /usr/local/bin/kubectl`
+- Verify the installation `kubectl version --client`
+3) Initialize a Local Kubernetes Cluster
+- From the [project] directory (or any working directory), initialize a local Kubernetes cluster with 2 nodes by running: `minikube start --nodes=2` . This command starts a multi-node cluster locally using Minikube, which simulates a real Kubernetes environment on your machine.
+- To verify that Minikube is running properly, check the status with: `minikube status`
+4) Launch Kubernetes Dashboard
+- To start the K8s dashboard UI, run `minikube dashboard`
